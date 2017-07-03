@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="titleBar">
+        <item name="centerTitleTextColor">#000000</item>
+        <item name="navigationTextColor">#000000</item>
+        <item name="titleTextSize">17sp</item>
+        <item name="navigationTextSize">17sp</item>
+        <item name="marginLeft">16dp</item>
+        <item name="marginRight">16dp</item>
+        <item name="contentMargin">16dp</item>
+    </style>
+</resources>

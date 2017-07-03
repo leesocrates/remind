@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- TabLayoutView -->
+    <color name="defaultActiveTextColor">#3b86df</color>
+    <color name="defaultInactiveTextColor">#999999</color>
+    <color name="defaultActiveBackground">#202020</color>
+    <color name="defaultInactiveBackground">#202020</color>
+    <bool name="defaultHasSeparator">false</bool>
+    <bool name="defaultShowActiveBackground">true</bool>
+
+    <!-- TitleBarView -->
+    <color name="defaultTitleTextColor">#000000</color>
+    <color name="defaultNavigationTextColor">#000000</color>
+    <dimen name="defaultTitleTextSize">17sp</dimen>
+    <dimen name="defaultNavigationTextSize">17sp</dimen>
+    <dimen name="defaultMarginLeft">16dp</dimen>
+    <dimen name="defaultMarginRight">16dp</dimen>
+    <dimen name="defaultContentMargin">16dp</dimen>
+</resources>

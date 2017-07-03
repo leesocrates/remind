@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_ver"
+            android:icon="@mipmap/ic_launcher"
+            android:title="@string/version_info"/>
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@mipmap/ic_launcher"
+            android:title="@string/about_us"/>
+        <item
+            android:id="@+id/sub_switch"
+            android:checkable="false"
+            android:icon="@mipmap/ic_launcher"
+            android:title="@string/switch_theme"/>
+        <item
+            android:id="@+id/sub_exit"
+            android:icon="@mipmap/ic_launcher"
+            android:title="@string/exit_app"/>
+    </group>
+
+
+</menu>

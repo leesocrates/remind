@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TabLayoutView">
+        <attr name="activeTextColor" format="color" />
+        <attr name="inactiveTextColor" format="color" />
+        <attr name="activeBackground" format="color" />
+        <attr name="inactiveBackground" format="color" />
+        <attr name="hasSeparator" format="boolean" />
+        <attr name="tabLayoutResId" format="reference" />
+        <attr name="showAvtiveBackground" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="TitleBarView">
+        <attr name="centerTitleTextColor" format="color" />
+        <attr name="navigationTextColor" format="color" />
+        <attr name="titleTextSize" format="dimension" />
+        <attr name="navigationTextSize" format="dimension" />
+        <attr name="marginLeft" format="dimension" />
+        <attr name="marginRight" format="dimension" />
+        <attr name="contentMargin" format="dimension" />
+    </declare-styleable>
+
+</resources>
