@@ -1,6 +1,7 @@
 package com.lee.socrates.remind.util
 
 import android.content.Context
+import android.support.design.widget.BaseTransientBottomBar
 import android.widget.Toast
 
 
@@ -34,10 +35,6 @@ fun String.validatePassword(context: Context, minLength: Int = 6, maxLength: Int
     return isValidate
 }
 
-fun Context.showShortToast(message: String){
-    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-}
-
-fun Context.showLongToast(message: String){
-    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+fun Context.showToast(message: String, duration: Int = Toast.LENGTH_LONG){
+    Toast.makeText(this, message, duration).show()
 }

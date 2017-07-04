@@ -1,11 +1,14 @@
 package com.lee.socrates.remind.fragment
 
 import android.app.ProgressDialog
-import android.widget.Toast
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.lee.library.network.NetService
 import com.lee.socrates.remind.R
+import com.lee.socrates.remind.entity.Account
 import com.lee.socrates.remind.service.RetrofitService
+import com.lee.socrates.remind.util.AccountManager
+import com.lee.socrates.remind.util.showToast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -32,6 +35,11 @@ class LoginFragment : BaseFragment() {
             }
             login()
         }
+        linkSignUp.setOnClickListener {
+            ARouter.getInstance().build("/remain/activity/container")
+                    .withString("fragmentName", "register")
+                    .navigation()
+        }
     }
 
     fun login() {
@@ -41,14 +49,21 @@ class LoginFragment : BaseFragment() {
         progressDialog.setMessage("Login...")
         progressDialog.show()
         val hashMap = HashMap<String, Any?>()
-        hashMap.put("userName", inputEmail.text.toString())
+        val userName = inputEmail.text.toString()
+        hashMap.put("userName", userName)
         hashMap.put("password", inputPassword.text.toString())
         NetService<RetrofitService>(RetrofitService::class.java).netApi.login(hashMap)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     progressDialog.dismiss()
-                    Toast.makeText(activity, it.message, Toast.LENGTH_LONG).show()
+                    context.showToast(it.message)
+                        if (it.isSuccess){
+                            val account: Account = Account()
+                            account.accountName = userName
+                            AccountManager.addUser(account)
+                            activity.finish()
+                        }
                 }, { progressDialog.dismiss() })
     }
 
