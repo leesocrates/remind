@@ -1,8 +1,11 @@
 package com.lee.socrates.remind.util
 
 import android.content.Context
-import android.support.design.widget.BaseTransientBottomBar
+import android.text.TextUtils
+import android.widget.ImageView
 import android.widget.Toast
+import com.lee.socrates.remind.R
+import com.squareup.picasso.Picasso
 
 
 fun String.validateUserName(context: Context, minLength: Int = 6, maxLength: Int = 15): Boolean {
@@ -37,4 +40,12 @@ fun String.validatePassword(context: Context, minLength: Int = 6, maxLength: Int
 
 fun Context.showToast(message: String, duration: Int = Toast.LENGTH_LONG){
     Toast.makeText(this, message, duration).show()
+}
+
+fun ImageView.loadImg(imageUrl: String) {
+    if (TextUtils.isEmpty(imageUrl)) {
+        Picasso.with(context).load(R.mipmap.ic_launcher).into(this)
+    } else {
+        Picasso.with(context).load(imageUrl).into(this)
+    }
 }

@@ -9,7 +9,7 @@ import retrofit2.http.*
 /**
  * Created by lee on 2017/6/29.
  */
-interface RetrofitService {
+interface RemindApi {
 
     @POST("register")
     fun register(@Body bodyMap: Map<String, @JvmSuppressWildcards Any?>): Observable<BaseResponse>

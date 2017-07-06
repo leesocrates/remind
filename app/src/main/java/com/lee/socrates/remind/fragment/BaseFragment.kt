@@ -7,12 +7,15 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.lee.socrates.remind.service.RemindApi
+import com.lee.library.network.RetrofitConfig
 
 /**
  * Created by socrates on 2016/4/3.
  */
 abstract class BaseFragment : Fragment() {
     protected lateinit var rootView: View
+    protected val retrofitService: RemindApi by lazy { RetrofitConfig.retrofit.create(RemindApi::class.java)}
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater?.inflate(getLayoutId(), container, false) ?:

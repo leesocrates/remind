@@ -1,13 +1,8 @@
 package com.lee.socrates.remind.fragment
 
 import android.app.ProgressDialog
-import android.widget.Toast
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.lee.library.network.NetService
 import com.lee.socrates.remind.R
-import com.lee.socrates.remind.entity.Account
-import com.lee.socrates.remind.service.RetrofitService
-import com.lee.socrates.remind.util.AccountManager
 import com.lee.socrates.remind.util.showToast
 import com.lee.socrates.remind.util.validatePassword
 import com.lee.socrates.remind.util.validateUserName
@@ -51,8 +46,8 @@ class RegisterFragment : BaseFragment() {
         val userName = inputEmail.text.toString()
         hashMap.put("userName", userName)
         hashMap.put("password", inputPassword.text.toString())
-        NetService<RetrofitService>(RetrofitService::class.java).netApi.register(hashMap)
-                .subscribeOn(Schedulers.newThread())
+        retrofitService.register(hashMap)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     progressDialog.dismiss()

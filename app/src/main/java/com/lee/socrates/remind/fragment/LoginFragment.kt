@@ -1,12 +1,11 @@
 package com.lee.socrates.remind.fragment
 
+import android.app.Activity
 import android.app.ProgressDialog
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.lee.library.network.NetService
 import com.lee.socrates.remind.R
 import com.lee.socrates.remind.entity.Account
-import com.lee.socrates.remind.service.RetrofitService
 import com.lee.socrates.remind.util.AccountManager
 import com.lee.socrates.remind.util.showToast
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -52,8 +51,8 @@ class LoginFragment : BaseFragment() {
         val userName = inputEmail.text.toString()
         hashMap.put("userName", userName)
         hashMap.put("password", inputPassword.text.toString())
-        NetService<RetrofitService>(RetrofitService::class.java).netApi.login(hashMap)
-                .subscribeOn(Schedulers.newThread())
+        retrofitService.login(hashMap)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     progressDialog.dismiss()
@@ -62,6 +61,7 @@ class LoginFragment : BaseFragment() {
                             val account: Account = Account()
                             account.accountName = userName
                             AccountManager.addUser(account)
+                            activity.setResult(Activity.RESULT_OK)
                             activity.finish()
                         }
                 }, { progressDialog.dismiss() })

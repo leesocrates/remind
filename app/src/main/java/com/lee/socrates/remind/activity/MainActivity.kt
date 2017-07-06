@@ -1,9 +1,13 @@
 package com.lee.socrates.remind.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
+import com.alibaba.android.arouter.facade.callback.NavigationCallback
 import com.alibaba.android.arouter.launcher.ARouter
 import com.lee.socrates.remind.R
 import com.lee.socrates.remind.fragment.PasswordListFragment
@@ -14,6 +18,9 @@ import kotlinx.android.synthetic.main.activity_main.*
  * Created by socrates on 2016/4/2.
  */
 class MainActivity : BaseActivity() {
+
+    var iconView: ImageView? = null
+    var nameView: TextView? = null
 
     override fun getLayoutId(): Int {
         return R.layout.activity_main
@@ -49,8 +56,9 @@ class MainActivity : BaseActivity() {
 
     private fun initNavigationView() {
         val headView: View = navigationView.getHeaderView(0)
-        val iconView: ImageView = headView.findViewById(R.id.userIcon) as ImageView
-        iconView.setOnClickListener {
+        iconView = headView.findViewById(R.id.userIcon) as ImageView?
+        nameView = headView.findViewById(R.id.userName) as TextView?
+        iconView?.setOnClickListener {
             if (AccountManager.hasLoginUser()) {
                 ARouter.getInstance().build("/remain/activity/container")
                         .withString("title", "UserInfo")
@@ -59,7 +67,7 @@ class MainActivity : BaseActivity() {
             } else {
                 ARouter.getInstance().build("/remain/activity/container")
                         .withString("fragmentName", "login")
-                        .navigation()
+                        .navigation(this, requestCodeLogin)
             }
         }
 
@@ -80,12 +88,24 @@ class MainActivity : BaseActivity() {
         })
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == requestCodeLogin) {
+            if (resultCode == Activity.RESULT_OK) {
+                if (!AccountManager.currentAccountName.isNullOrEmpty()) {
+                    nameView?.text = AccountManager.currentAccountName
+                }
+            }
+        }
+    }
+
     private fun initContentView() {
         openFragment<PasswordListFragment>()
     }
 
     companion object {
         private val itemIdSetting: Int = 1
+        private val requestCodeLogin: Int = 1 //must big than 0, otherwise ARouter will not call startActivityForResult
     }
 
 }

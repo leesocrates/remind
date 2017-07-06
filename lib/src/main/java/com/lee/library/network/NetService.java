@@ -9,7 +9,7 @@ public class NetService<T> {
     private T mNetApi;
 
     public NetService(Class<T> tClass) {
-        mNetApi = RestfulConfig.retrofit.create(tClass);
+        mNetApi = RetrofitConfig.retrofit.create(tClass);
     }
 
     public T getNetApi() {
