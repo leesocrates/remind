@@ -5,8 +5,8 @@ import android.app.ProgressDialog
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.lee.socrates.remind.R
-import com.lee.socrates.remind.entity.Account
-import com.lee.socrates.remind.util.AccountManager
+import com.lee.socrates.remind.entity.User
+import com.lee.socrates.remind.util.UserInfoManager
 import com.lee.socrates.remind.util.showToast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -58,9 +58,9 @@ class LoginFragment : BaseFragment() {
                     progressDialog.dismiss()
                     context.showToast(it.message)
                         if (it.isSuccess){
-                            val account: Account = Account()
-                            account.accountName = userName
-                            AccountManager.addUser(account)
+                            val user: User = User()
+                            user.userAccount = userName
+                            UserInfoManager.addUser(user)
                             activity.setResult(Activity.RESULT_OK)
                             activity.finish()
                         }

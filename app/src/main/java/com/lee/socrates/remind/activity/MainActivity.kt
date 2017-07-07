@@ -7,11 +7,10 @@ import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.alibaba.android.arouter.facade.callback.NavigationCallback
 import com.alibaba.android.arouter.launcher.ARouter
 import com.lee.socrates.remind.R
-import com.lee.socrates.remind.fragment.PasswordListFragment
-import com.lee.socrates.remind.util.AccountManager
+import com.lee.socrates.remind.fragment.AccountRecordListFragment
+import com.lee.socrates.remind.util.UserInfoManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -39,7 +38,12 @@ class MainActivity : BaseActivity() {
         toolbar.setOnMenuItemClickListener {
             menuItem ->
             when (menuItem.itemId) {
-                itemIdSetting -> consume { start<SettingActivity>() }
+                itemIdSetting -> consume {
+                    ARouter.getInstance().build("/remain/activity/container")
+                            .withString("title", "Setting")
+                            .withString("fragmentName", "setting")
+                            .navigation()
+                }
                 else -> false
             }
         }
@@ -59,7 +63,7 @@ class MainActivity : BaseActivity() {
         iconView = headView.findViewById(R.id.userIcon) as ImageView?
         nameView = headView.findViewById(R.id.userName) as TextView?
         iconView?.setOnClickListener {
-            if (AccountManager.hasLoginUser()) {
+            if (UserInfoManager.hasLoginUser()) {
                 ARouter.getInstance().build("/remain/activity/container")
                         .withString("title", "UserInfo")
                         .withString("fragmentName", "userInfo")
@@ -92,15 +96,15 @@ class MainActivity : BaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == requestCodeLogin) {
             if (resultCode == Activity.RESULT_OK) {
-                if (!AccountManager.currentAccountName.isNullOrEmpty()) {
-                    nameView?.text = AccountManager.currentAccountName
+                if (!UserInfoManager.currentUserName.isNullOrEmpty()) {
+                    nameView?.text = UserInfoManager.currentUserName
                 }
             }
         }
     }
 
     private fun initContentView() {
-        openFragment<PasswordListFragment>()
+        openFragment<AccountRecordListFragment>()
     }
 
     companion object {

@@ -1,5 +1,6 @@
 package com.lee.socrates.remind.service
 
+import com.lee.socrates.remind.entity.AccountRecord
 import com.lee.socrates.remind.entity.BaseResponse
 import io.reactivex.Observable
 import okhttp3.RequestBody
@@ -12,21 +13,23 @@ import retrofit2.http.*
 interface RemindApi {
 
     @POST("register")
-    fun register(@Body bodyMap: Map<String, @JvmSuppressWildcards Any?>): Observable<BaseResponse>
+    fun register(@Body bodyMap: Map<String, @JvmSuppressWildcards Any?>): Observable<BaseResponse<Nothing>>
 
     @POST("login")
-    fun login(@Body bodyMap: Map<String, @JvmSuppressWildcards Any?>): Observable<BaseResponse>
+    fun login(@Body bodyMap: Map<String, @JvmSuppressWildcards Any?>): Observable<BaseResponse<Nothing>>
+
+    @POST("addAccountRecord")
+    fun addAccount(): Observable<BaseResponse<Nothing>>
+
+    @GET("accountRecordList")
+    fun getAccountList(): Observable<BaseResponse<AccountRecord>>
 
     @Multipart
     @POST("UploadRecognized?uid=0cebde2135134f36&type=1")
-    fun uploadImage(@Part("file\"; filename=\"uploadfile.png\"") file: RequestBody): Observable<BaseResponse>
+    fun uploadImage(@Part("file\"; filename=\"uploadfile.png\"") file: RequestBody): Observable<BaseResponse<Nothing>>
 
     @POST("upload/image")
-    fun updateHeadIcon(@Body bytes: ByteArray): Observable<BaseResponse>
-
-    @Multipart
-    @POST("UploadRecognized?uid=0cebde2135134f36&type=1")
-    fun uploadTestImage(@Body bytes: ByteArray): Observable<BaseResponse>
+    fun updateHeadIcon(@Body bytes: ByteArray): Observable<BaseResponse<Nothing>>
 
     @GET("getJson/{fileName}")
     fun download(@Path("fileName") fileName: String): Observable<ResponseBody>
