@@ -1,9 +1,12 @@
 package com.lee.socrates.remind.util
 
+import android.app.Activity
 import android.content.Context
 import android.text.TextUtils
 import android.widget.ImageView
 import android.widget.Toast
+import com.alibaba.android.arouter.facade.Postcard
+import com.alibaba.android.arouter.launcher.ARouter
 import com.lee.socrates.remind.R
 import com.squareup.picasso.Picasso
 
@@ -38,7 +41,7 @@ fun String.validatePassword(context: Context, minLength: Int = 6, maxLength: Int
     return isValidate
 }
 
-fun Context.showToast(message: String, duration: Int = Toast.LENGTH_LONG){
+fun Context.showToast(message: String, duration: Int = Toast.LENGTH_LONG) {
     Toast.makeText(this, message, duration).show()
 }
 
@@ -48,4 +51,17 @@ fun ImageView.loadImg(imageUrl: String) {
     } else {
         Picasso.with(context).load(imageUrl).into(this)
     }
+}
+
+fun ARouter.navigation(context: Context, fragmentName: String, pageTitle: String? = "",
+                       requestCode: Int = 0,path: String = "/remain/activity/container") {
+    val postcard = ARouter.getInstance().build(path)
+            .withString("title", pageTitle)
+            .withString("fragmentName", fragmentName)
+    if (context is Activity) {
+        postcard.navigation(context, requestCode)
+    } else {
+        postcard.navigation(context)
+    }
+
 }

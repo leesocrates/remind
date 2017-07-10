@@ -11,6 +11,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.lee.socrates.remind.R
 import com.lee.socrates.remind.fragment.AccountRecordListFragment
 import com.lee.socrates.remind.util.UserInfoManager
+import com.lee.socrates.remind.util.navigation
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -39,10 +40,11 @@ class MainActivity : BaseActivity() {
             menuItem ->
             when (menuItem.itemId) {
                 itemIdSetting -> consume {
-                    ARouter.getInstance().build("/remain/activity/container")
-                            .withString("title", "Setting")
-                            .withString("fragmentName", "setting")
-                            .navigation()
+                    ARouter.getInstance().navigation(this, "setting", "Setting")
+//                    ARouter.getInstance().build("/remain/activity/container")
+//                            .withString("title", "Setting")
+//                            .withString("fragmentName", "setting")
+//                            .navigation()
                 }
                 else -> false
             }
@@ -64,14 +66,9 @@ class MainActivity : BaseActivity() {
         nameView = headView.findViewById(R.id.userName) as TextView?
         iconView?.setOnClickListener {
             if (UserInfoManager.hasLoginUser()) {
-                ARouter.getInstance().build("/remain/activity/container")
-                        .withString("title", "UserInfo")
-                        .withString("fragmentName", "userInfo")
-                        .navigation()
+                ARouter.getInstance().navigation(this, "userInfo", "UserInfo")
             } else {
-                ARouter.getInstance().build("/remain/activity/container")
-                        .withString("fragmentName", "login")
-                        .navigation(this, requestCodeLogin)
+                ARouter.getInstance().navigation(this, "login", "", requestCodeLogin)
             }
         }
 
