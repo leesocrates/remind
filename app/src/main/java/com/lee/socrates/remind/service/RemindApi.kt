@@ -19,7 +19,7 @@ interface RemindApi {
     fun login(@Body bodyMap: Map<String, @JvmSuppressWildcards Any?>): Observable<BaseResponse<Nothing>>
 
     @POST("addAccountRecord")
-    fun addAccount(): Observable<BaseResponse<Nothing>>
+    fun addAccount(@Body accountRecord: AccountRecord): Observable<BaseResponse<Nothing>>
 
     @GET("accountRecordList")
     fun getAccountList(): Observable<BaseResponse<AccountRecord>>

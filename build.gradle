@@ -1,16 +1,18 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.1.2-3'
+    ext.kotlin_version = '1.1.51'
 
     repositories {
         jcenter(){
             url "http://jcenter.bintray.com/"
         }
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.android.tools.build:gradle:3.0.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -21,9 +23,9 @@ allprojects {
     ext {
         androidMinSdkVersion = 19
         androidTargetSdkVersion = 25
-        androidCompileSdkVersion = 25
+        androidCompileSdkVersion = 26
         androidMinSdkVersion = 16
-        androidBuildToolsVersions = '25.0.2'
+        androidBuildToolsVersions = '26.0.2'
         sourceCompatibilityVersion = JavaVersion.VERSION_1_7
         targetCompatibilityVersion = JavaVersion.VERSION_1_7
 
@@ -33,9 +35,8 @@ allprojects {
         rxJavaVersion = '2.0.1'
         supportLibraryVersion = '25.2.0'
         butterknifeVersion = '8.5.1'
-        kotlin_version = '1.1.2'
         arouter = '1.2.1.1'
-        kotlin_version = '1.1.2-3'
+        kotlin_version = '1.1.51'
 
         deps = [
                 // Android
@@ -67,5 +68,6 @@ allprojects {
     repositories {
         jcenter()
         mavenCentral()
+        google()
     }
 }

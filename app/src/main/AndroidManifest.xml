@@ -18,12 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SettingActivity"/>
-        <activity android:name=".activity.AddPasswordActivity"/>
-        <activity
-            android:name=".activity.ContainerActivity"
-            android:theme="@style/AppTheme.Dark">
-        </activity>
+
     </application>
 
 </manifest>

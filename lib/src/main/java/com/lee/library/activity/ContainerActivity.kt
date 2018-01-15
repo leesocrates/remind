@@ -1,16 +1,16 @@
-package com.lee.socrates.remind.activity
+package com.lee.library.activity
 
 import android.support.v4.app.Fragment
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.lee.socrates.remind.R
-import com.lee.socrates.remind.util.Constant
+import com.lee.library.R
+import com.lee.library.util.Constant
 import kotlinx.android.synthetic.main.activity_container.*
 
 @Route(path = Constant.activityContainer)
-class ContainerActivity : BaseActivity() {
+open class ContainerActivity : BaseActivity() {
 
     @Autowired
     @JvmField
@@ -43,7 +43,7 @@ class ContainerActivity : BaseActivity() {
         fragmentName ?: throw IllegalArgumentException("field fragmentName must not be null")
         fragmentName?.let {
             var f: Fragment = ARouter.getInstance().build("/remain/fragment/$fragmentName").navigation() as Fragment
-            openFragment(f, fragmentName, false)
+            openFragment(f, fragmentName, false, R.id.fragment_container)
         }
 
     }

@@ -1,9 +1,9 @@
 package com.lee.socrates.remind.fragment
 
-import android.content.Intent
+import android.app.Activity
+import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +15,7 @@ import com.lee.library.network.RetrofitConfig
  */
 abstract class BaseFragment : Fragment() {
     protected lateinit var rootView: View
-    protected val retrofitService: RemindApi by lazy { RetrofitConfig.retrofit.create(RemindApi::class.java)}
+    protected val retrofitService: RemindApi by lazy { RetrofitConfig.retrofit.create(RemindApi::class.java) }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater?.inflate(getLayoutId(), container, false) ?:
@@ -28,12 +28,7 @@ abstract class BaseFragment : Fragment() {
         initView()
     }
 
-    inline fun <reified T : AppCompatActivity> start() {
-        startActivity(Intent(activity, T::class.java))
-    }
-
     abstract fun getLayoutId(): Int
     abstract fun initView()
-
 
 }

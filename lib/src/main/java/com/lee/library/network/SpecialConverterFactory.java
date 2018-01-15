@@ -29,7 +29,7 @@ public class SpecialConverterFactory extends Converter.Factory {
     }
 
     /**
-     * Create an instance using {@code gson} for conversion. Encoding to JSON and
+     * Create an instance using {@code gson} for conversion. Encoding to JSON andA
      * decoding from JSON (when no charset is specified by a header) will use UTF-8.
      */
     public static SpecialConverterFactory create(Gson gson) {

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.ProgressDialog
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.lee.library.util.Constant
 import com.lee.socrates.remind.R
 import com.lee.socrates.remind.entity.User
 import com.lee.socrates.remind.util.*
@@ -32,7 +33,7 @@ class LoginFragment : BaseFragment() {
             login()
         }
         linkSignUp.setOnClickListener {
-            ARouter.getInstance().navigation(activity, "register")
+            ARouter.getInstance().navigation(activity, "register", "", 0, Constant.materialActivityContainer)
         }
     }
 

@@ -8,6 +8,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.alibaba.android.arouter.launcher.ARouter
+import com.lee.library.activity.BaseActivity
+import com.lee.library.util.Constant
 import com.lee.socrates.remind.R
 import com.lee.socrates.remind.fragment.AccountRecordListFragment
 import com.lee.socrates.remind.util.UserInfoManager
@@ -41,10 +43,6 @@ class MainActivity : BaseActivity() {
             when (menuItem.itemId) {
                 itemIdSetting -> consume {
                     ARouter.getInstance().navigation(this, "setting", "Setting")
-//                    ARouter.getInstance().build("/remain/activity/container")
-//                            .withString("title", "Setting")
-//                            .withString("fragmentName", "setting")
-//                            .navigation()
                 }
                 else -> false
             }
@@ -62,13 +60,13 @@ class MainActivity : BaseActivity() {
 
     private fun initNavigationView() {
         val headView: View = navigationView.getHeaderView(0)
-        iconView = headView.findViewById(R.id.userIcon) as ImageView?
-        nameView = headView.findViewById(R.id.userName) as TextView?
+        iconView = headView.findViewById(R.id.userIcon)
+        nameView = headView.findViewById(R.id.userName)
         iconView?.setOnClickListener {
             if (UserInfoManager.hasLoginUser()) {
                 ARouter.getInstance().navigation(this, "userInfo", "UserInfo")
             } else {
-                ARouter.getInstance().navigation(this, "login", "", requestCodeLogin)
+                ARouter.getInstance().navigation(this, "login", "", requestCodeLogin, Constant.materialActivityContainer)
             }
         }
 
@@ -101,7 +99,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initContentView() {
-        openFragment<AccountRecordListFragment>()
+        openFragment<AccountRecordListFragment>(R.id.fragment_container)
     }
 
     companion object {

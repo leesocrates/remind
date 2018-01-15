@@ -37,9 +37,9 @@ dependencies {
 
     compile deps.supportv7
     compile deps.supportDesign
-    compile deps.arouterApi
+    compile project(':arouter-api')
     compile project(':lib')
-    kapt deps.arouterCompiler
+    kapt project(':arouter-compiler')
 
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
