@@ -1,4 +1,4 @@
-package com.lee.library.activity
+package com.lee.socrates.remind.activity
 
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.lee.library.util.Constant

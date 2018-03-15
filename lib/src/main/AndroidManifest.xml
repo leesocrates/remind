@@ -6,11 +6,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true">
 
-        <activity
-            android:name="com.lee.library.activity.ContainerActivity"/>
-        <activity
-            android:name="com.lee.library.activity.MaterialContainerActivity"
-            android:theme="@style/AppTheme.Dark"/>
     </application>
 
 </manifest>

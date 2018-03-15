@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.alibaba.android.arouter.launcher.ARouter
 import com.lee.library.activity.BaseActivity
-import com.lee.library.util.Constant
 import com.lee.socrates.remind.R
 import com.lee.socrates.remind.fragment.AccountRecordListFragment
 import com.lee.socrates.remind.util.UserInfoManager
@@ -66,7 +65,8 @@ class MainActivity : BaseActivity() {
             if (UserInfoManager.hasLoginUser()) {
                 ARouter.getInstance().navigation(this, "userInfo", "UserInfo")
             } else {
-                ARouter.getInstance().navigation(this, "login", "", requestCodeLogin, Constant.materialActivityContainer)
+//                ARouter.getInstance().navigation(this, "login", "", requestCodeLogin, Constant.materialActivityContainer)
+                startActivity(Intent(this, WebRTCActivity::class.java))
             }
         }
 

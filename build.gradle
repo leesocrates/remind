@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.1.51'
+    ext.kotlin_version = '1.2.21'
 
     repositories {
         jcenter(){
@@ -10,7 +10,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0'
+        classpath 'com.android.tools.build:gradle:3.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
 
@@ -21,13 +21,12 @@ buildscript {
 
 allprojects {
     ext {
-        androidMinSdkVersion = 19
         androidTargetSdkVersion = 25
         androidCompileSdkVersion = 26
         androidMinSdkVersion = 16
         androidBuildToolsVersions = '26.0.2'
-        sourceCompatibilityVersion = JavaVersion.VERSION_1_7
-        targetCompatibilityVersion = JavaVersion.VERSION_1_7
+        sourceCompatibilityVersion = JavaVersion.VERSION_1_8
+        targetCompatibilityVersion = JavaVersion.VERSION_1_8
 
         retrofitVersion = '2.2.0'
         okhttpVersion = '3.6.0'
@@ -36,7 +35,8 @@ allprojects {
         supportLibraryVersion = '25.2.0'
         butterknifeVersion = '8.5.1'
         arouter = '1.2.1.1'
-        kotlin_version = '1.1.51'
+        kotlin_version = '1.2.21'
+        webrtc= '1.0.21217'
 
         deps = [
                 // Android
@@ -44,6 +44,7 @@ allprojects {
                 supportAnnotations : "com.android.support:support-annotations:$supportLibraryVersion",
                 supportDesign      : "com.android.support:design:$supportLibraryVersion",
                 android            : 'com.google.android:android:2.1.2',
+                constraintLayout  : 'com.android.support.constraint:constraint-layout:1.0.2',
 
                 // Square
                 javapoet           : 'com.squareup:javapoet:1.6.1',
@@ -61,7 +62,8 @@ allprojects {
                 butterknifecompiler: "com.jakewharton:butterknife-compiler:$butterknifeVersion",
 
                 arouterApi         : "com.alibaba:arouter-api:$arouter",
-                arouterCompiler    : "com.alibaba:arouter-compiler:1.1.2.1"
+                arouterCompiler    : "com.alibaba:arouter-compiler:1.1.2.1",
+                gson               : "com.google.code.gson:gson:2.8.2"
         ]
     }
 

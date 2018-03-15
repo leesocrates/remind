@@ -12,4 +12,13 @@
     <string name="navigation_drawer_open">导航栏打开</string>
     <string name="navigation_drawer_close">导航栏关闭</string>
     <string name="password_not_same">两次输入的密码必须一样</string>
+
+    <string name="call">call</string>
+    <string name="start">start</string>
+    <string name="hangup">hangUp</string>
+    <string name="login">login</string>
+    <string name="input_login_name">input login name</string>
+    <string name="input_call_user_name">input call user name</string>
+    <string name="input_message_you_want_to_send">input message you want to send</string>
+    <string name="sendmessage">sendMessage</string>
 </resources>

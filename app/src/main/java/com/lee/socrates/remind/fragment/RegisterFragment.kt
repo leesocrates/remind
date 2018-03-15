@@ -15,7 +15,7 @@ import java.util.HashMap
  * Created by socrates on 2016/4/4.
  */
 @Route(path = "/remain/fragment/register")
-class RegisterFragment : BaseFragment() {
+class RegisterFragment : AppBaseFragment() {
     override fun getLayoutId(): Int {
         return R.layout.fragment_register
     }

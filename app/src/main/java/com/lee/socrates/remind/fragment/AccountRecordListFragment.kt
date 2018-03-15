@@ -7,7 +7,7 @@ import kotlinx.android.synthetic.main.fragment_account_list.*
 /**
  * Created by socrates on 2016/4/3.
  */
-class AccountRecordListFragment : BaseFragment() {
+class AccountRecordListFragment : AppBaseFragment() {
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_account_list

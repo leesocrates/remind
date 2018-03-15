@@ -7,7 +7,7 @@ import com.lee.socrates.remind.R
  * Created by lee on 2017/7/7.
  */
 @Route(path = "/remain/fragment/setting")
-class SettingFragment : BaseFragment(){
+class SettingFragment : AppBaseFragment(){
     override fun initView() {
 
     }

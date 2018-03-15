@@ -1,12 +1,13 @@
-package com.lee.library.activity
+package com.lee.socrates.remind.activity
 
 import android.support.v4.app.Fragment
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.lee.library.R
+import com.lee.library.activity.BaseActivity
 import com.lee.library.util.Constant
+import com.lee.socrates.remind.R
 import kotlinx.android.synthetic.main.activity_container.*
 
 @Route(path = Constant.activityContainer)

@@ -1,6 +1,8 @@
 package com.lee.socrates.remind
 
 import android.app.Application
+import android.content.Context
+import android.support.multidex.MultiDex
 import com.alibaba.android.arouter.launcher.ARouter
 
 /**
@@ -15,4 +17,8 @@ class MyApplication: Application() {
         ARouter.init(this)
     }
 
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        MultiDex.install(this)
+    }
 }

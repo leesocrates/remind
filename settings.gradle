@@ -1,1 +1,1 @@
-include ':app', ':lib', ':arouter-annotation', ':arouter-api', ':arouter-compiler', ':webrtclib'
+include ':app', ':lib', ':arouter-annotation', ':arouter-api', ':arouter-compiler', ':webrtclib', ':mvvmdemo'

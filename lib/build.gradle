@@ -30,10 +30,8 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile "com.android.support:appcompat-v7:$supportLibraryVersion"
+    compile deps.supportv7
     compile 'de.greenrobot:greendao:2.0.0'
-    compile project(':arouter-api')
-    kapt project(':arouter-compiler')
 
     compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
     compile "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"

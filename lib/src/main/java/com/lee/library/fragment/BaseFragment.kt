@@ -1,21 +1,17 @@
-package com.lee.socrates.remind.fragment
+package com.lee.library.fragment
 
-import android.app.Activity
-import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.lee.socrates.remind.service.RemindApi
-import com.lee.library.network.RetrofitConfig
 
 /**
  * Created by socrates on 2016/4/3.
  */
 abstract class BaseFragment : Fragment() {
     protected lateinit var rootView: View
-    protected val retrofitService: RemindApi by lazy { RetrofitConfig.retrofit.create(RemindApi::class.java) }
+    protected val TAG: String= this.javaClass.simpleName
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater?.inflate(getLayoutId(), container, false) ?:
