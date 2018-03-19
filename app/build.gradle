@@ -41,6 +41,10 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -54,7 +58,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile deps.constraintLayout
 //    compile project(':webrtclib')
-    compile 'com.android.support:multidex:1.0.2'
+    compile 'com.android.support:multidex:1.0.3'
 
     compile project(':lib')
     compile "org.webrtc:google-webrtc:$webrtc"
