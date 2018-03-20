@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.lee.socrates.mvvmdemo.MainActivityViewModel"/>
+            type="com.lee.socrates.mvvmdemo.bluetooth.BluetoothViewModel"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -16,37 +16,29 @@
         android:layout_height="match_parent"
         tools:context="com.lee.socrates.mvvmdemo.MainActivity">
 
-        <com.lee.socrates.mvvmdemo.view.MultiLayerImageView
-            android:id="@+id/multiLayerView"
-            android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:background="#88ff0000"/>
-
-        <!--android:background="@drawable/ic_launcher_background"-->
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#81ffffff"
-            android:text="@{viewModel.title}"
+            android:background="#88ff0000"
+            android:text="@{viewModel.info}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.778"/>
+            app:layout_constraintVertical_bias="0.113"/>
 
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:onClick="@{viewModel::onClick}"
-            android:text="change"
+            android:onClick="@{viewModel::startSearch}"
+            android:text="search"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"/>
 
     </android.support.constraint.ConstraintLayout>
 </layout>
-

@@ -21,8 +21,8 @@ class MainActivity : AppCompatActivity() {
         mavm.title.set("ok")
         amb.viewModel = mavm
         val bytes: ByteArray = multiLayerView.drawableToByteArray(textView.background)
-        val bg: Drawable = multiLayerView.byteArrayToDrawable(bytes)
-        textView.background = bg
+//        val bg: Drawable = multiLayerView.byteArrayToDrawable(bytes)
+//        textView.background = bg
         multiLayerView.addLayer(bytes)
     }
 

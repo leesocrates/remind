@@ -1,4 +1,4 @@
-package com.lee.socrates.mvvmdemo;
+package com.lee.socrates.mvvmdemo.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -10,6 +10,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
@@ -20,10 +21,9 @@ import java.nio.ByteBuffer;
 
 public class MultiLayerImageView extends android.support.v7.widget.AppCompatImageView {
 
-    protected Canvas mCanvas = null;
-
-    protected Bitmap bitmap;
-
+    private final String TAG = this.getClass().getSimpleName();
+    private Canvas mCanvas = null;
+    private Bitmap bitmap;
     private int mWidth = 150;
     private int mHeight = 150;
 
@@ -44,13 +44,12 @@ public class MultiLayerImageView extends android.support.v7.widget.AppCompatImag
         super.onSizeChanged(w, h, oldw, oldh);
         mWidth = w;
         mHeight = h;
-        setupCanvas();
+//        setupCanvas();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        setBackground(null);
         if (bitmap != null) {
             canvas.drawBitmap(bitmap, 0, 0, null);
         }
@@ -76,7 +75,10 @@ public class MultiLayerImageView extends android.support.v7.widget.AppCompatImag
     }
 
     public void addLayer(byte[] bytes) {
-        setupCanvas();
+        if (mCanvas == null){
+            setupCanvas();
+        }
+        clipByteArray(bytes);
         Bitmap bitmap = byteArrayToBitmap(bytes);
         Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
         Paint paint = new Paint();
@@ -85,6 +87,13 @@ public class MultiLayerImageView extends android.support.v7.widget.AppCompatImag
         paint.setDither(true);
         mCanvas.drawBitmap(bitmap, rect, rect, paint);
         invalidate();
+    }
+
+    private byte[] clipByteArray(byte[] bytes){
+        for (int i=0; i<bytes.length/4; i++){
+            Log.e(TAG, bytes[i*4]+","+bytes[i*4+1]+","+bytes[i*4+2]+","+bytes[i*4+3]);
+        }
+        return null;
     }
 
 
@@ -122,7 +131,7 @@ public class MultiLayerImageView extends android.support.v7.widget.AppCompatImag
         int w = drawable.getIntrinsicWidth();
         int h = drawable.getIntrinsicHeight();
         // 取 drawable 的颜色格式
-        Bitmap.Config config = drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565;
+        Bitmap.Config config = Bitmap.Config.ARGB_8888;
         // 建立对应 bitmap
         Bitmap bitmap = Bitmap.createBitmap(mWidth, mHeight, config);
         // 建立对应 bitmap 的画布
