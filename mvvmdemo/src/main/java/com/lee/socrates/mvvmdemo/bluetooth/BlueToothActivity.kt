@@ -14,6 +14,8 @@ class BlueToothActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var amb: ActivityBluetoothBinding = DataBindingUtil.setContentView(this, R.layout.activity_bluetooth)
-
+        var btvm = BluetoothViewModel()
+        btvm.init(this)
+        amb.viewModel = btvm
     }
 }
