@@ -7,6 +7,8 @@
     <color name="defaultInactiveBackground">#202020</color>
     <bool name="defaultHasSeparator">false</bool>
     <bool name="defaultShowActiveBackground">true</bool>
+    <string name="tabStyleTextImage">textImage</string>
+    <string name="tabStyleTwoLineText">twoLineText</string>
 
     <!-- TitleBarView -->
     <color name="defaultTitleTextColor">#000000</color>

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="TabLayoutView">
+    <declare-styleable name="BaseTabLayoutView">
         <attr name="activeTextColor" format="color" />
         <attr name="inactiveTextColor" format="color" />
         <attr name="activeBackground" format="color" />
         <attr name="inactiveBackground" format="color" />
         <attr name="hasSeparator" format="boolean" />
         <attr name="tabLayoutResId" format="reference" />
-        <attr name="showAvtiveBackground" format="boolean" />
+        <attr name="showActiveBackground" format="boolean" />
+        <attr name="tabStyle" format="string"/>
     </declare-styleable>
 
     <declare-styleable name="TitleBarView">

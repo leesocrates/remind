@@ -1,5 +1,7 @@
 package com.lee.socrates.mvvmdemo.bluetooth
 
+import android.Manifest
+import android.app.Activity
 import android.databinding.ObservableField
 import android.view.View
 import android.bluetooth.BluetoothAdapter
@@ -14,8 +16,13 @@ import android.content.Intent
 import android.bluetooth.BluetoothGattDescriptor
 import android.bluetooth.BluetoothGattService
 import android.bluetooth.BluetoothGattCallback
+import android.content.pm.PackageManager
+import android.os.Build
+import android.support.v4.app.ActivityCompat
 import android.text.TextUtils
 import kotlin.experimental.and
+import android.support.v4.app.ActivityCompat.startActivityForResult
+import android.support.v4.content.ContextCompat
 
 
 /**
@@ -26,27 +33,60 @@ public class BluetoothViewModel {
     private val bleAdapter: BluetoothAdapter? = BluetoothAdapter.getDefaultAdapter()
 
     val info = ObservableField<String>()
-    private var mContext: Context? = null
+    private lateinit var mContext: Context
     private var bleGatt: BluetoothGatt? = null
     private var bleScanCallback: BluetoothAdapter.LeScanCallback? = null
+    private lateinit var mNavigator: BlueToothNavigator
 
-    fun init(context: Context) {
+    fun init(context: Context, navigator: BlueToothNavigator) {
         mContext = context
+        mNavigator = navigator
+    }
+
+    fun handleActivityResult(requestCode: Int, resultCode: Int) {
+        if (requestCode == BlueToothActivity.REQUEST_ENABLE_BT) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (ContextCompat.checkSelfPermission(mContext,
+                        Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    mNavigator.requestLocationPermission()
+                    return
+                }
+            }
+            startScan()
+        }
+    }
+
+    fun handleRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == BlueToothActivity.MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startScan()
+            }
+        }
     }
 
     fun startSearch(view: View) {
-        Log.e(TAG,"startSearch ...")
-        if (!check()) return   // 检测蓝牙
-        bleScanCallback = BleScanCallback()  // 回调接口
-        if (bleAdapter != null && bleAdapter.startLeScan(bleScanCallback)) {
-//            Timer().schedule(object : TimerTask() {  // 扫描一定时间"scanDelay"就停止。
-//                override fun run() {
-//                    bleAdapter.stopLeScan(BluetoothAdapter.LeScanCallback { device, rssi, scanRecord ->
-//                        Log.e(TAG, "found device name : " + device.name + " address : " + device.address)
-//                    })
-//                }
-//            }, 1000)
+        Log.e(TAG, "startSearch ...")
+        // 检测蓝牙
+        if (!check()) {
+            if (bleAdapter != null && !bleAdapter.isEnabled) {
+                mNavigator.requestOpenBlueTooth()
+            }
+            return
         }
+        startScan()
+    }
+
+    private fun startScan() {
+        bleScanCallback = BleScanCallback()  // 回调接口
+        bleAdapter != null && bleAdapter.startLeScan(bleScanCallback)
+//        var pairedDevices: Set<BluetoothDevice>? = bleAdapter?.bondedDevices
+//        if(pairedDevices!=null && pairedDevices.isNotEmpty()){
+//            for (device in pairedDevices) {
+//                Log.e(TAG, "found device name : " + device.name + " address : " + device.address)
+//            }
+//        }
+
     }
 
     private fun check(): Boolean {
@@ -57,7 +97,13 @@ public class BluetoothViewModel {
     private inner class BleScanCallback : BluetoothAdapter.LeScanCallback {
         // 扫描到新设备时，会回调该接口。可以将新设备显示在ui中，看具体需求
         override fun onLeScan(device: BluetoothDevice, rssi: Int, scanRecord: ByteArray) {
-            Log.e(TAG, "found device name : " + device.name + " address : " + device.address)
+            if (device.name!=null && device.name.isNotEmpty()) {
+                Log.e(TAG, "found device name : " + device.name + " address : " + device.address)
+            } else{
+                Log.e(TAG, "found device name : " + device.name + " address : " + device.address)
+                bleAdapter?.stopLeScan(bleScanCallback)
+
+            }
         }
     }
 
