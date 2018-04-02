@@ -32,6 +32,7 @@ public class BaseTabLayoutView extends LinearLayout {
     protected int activeTextColor;
     @ColorInt
     protected int inactiveTextColor;
+    protected Context mContext;
     private static final int defaultActiveTextColor = 0x333333;
     private static final int defaultInactiveTextColor = 0x999999;
     @DrawableRes
@@ -41,7 +42,6 @@ public class BaseTabLayoutView extends LinearLayout {
     private boolean mHasSeparator;
     private boolean mShowActiveBackground;
     private List<Tab> tabList;
-    private Context mContext;
     @ColorInt
     private int mSeparateLineColor;
     private TabListener mTabListener;
