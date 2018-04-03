@@ -44,11 +44,6 @@ public class BaseTabLayoutView extends LinearLayout {
     private List<Tab> tabList;
     @ColorInt
     private int mSeparateLineColor;
-    private TabListener mTabListener;
-    /**
-     * 当前选中的tab左右两边的分割线是否显示
-     */
-    private boolean isShowSepLineNearCurIndex = true;
 
     //每个tab的显示样式
     private TabStyle mTabStyle = new TextImageTabStyle();
@@ -56,6 +51,7 @@ public class BaseTabLayoutView extends LinearLayout {
      * tabview存放的容器
      */
     protected LinearLayout tabContainerView;
+    private List<OnTabChangeListener> onTabChangeListeners = new ArrayList<>();
 
     public BaseTabLayoutView(Context context) {
         this(context, null);
@@ -68,19 +64,19 @@ public class BaseTabLayoutView extends LinearLayout {
     public BaseTabLayoutView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mContext = context;
-        parseAttributeSet(context, attrs, defStyleAttr);
+        parseAttributeSet(attrs, defStyleAttr);
         initData();
         initView();
     }
 
-    protected void parseAttributeSet(Context context, AttributeSet attrs, int defStyleAttr) {
+    protected void parseAttributeSet(AttributeSet attrs, int defStyleAttr) {
         final Resources res = getResources();
         final int defaultActiveBackground = R.color.defaultActiveBackground;
         final int defaultInactiveBackground = R.color.defaultInactiveBackground;
         final boolean defaultHasSeparator = res.getBoolean(R.bool.defaultHasSeparator);
         final boolean defaultShowActiveBackground = res.getBoolean(R.bool.defaultShowActiveBackground);
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.BaseTabLayoutView, defStyleAttr, 0);
+        TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.BaseTabLayoutView, defStyleAttr, 0);
         activeTextColor =
                 a.getColor(R.styleable.BaseTabLayoutView_activeTextColor, defaultActiveTextColor);
         inactiveTextColor =
@@ -89,44 +85,49 @@ public class BaseTabLayoutView extends LinearLayout {
         mInactiveBackground = a.getResourceId(R.styleable.BaseTabLayoutView_inactiveBackground, defaultInactiveBackground);
         mHasSeparator = a.getBoolean(R.styleable.BaseTabLayoutView_hasSeparator, defaultHasSeparator);
         mShowActiveBackground = a.getBoolean(R.styleable.BaseTabLayoutView_showActiveBackground, defaultShowActiveBackground);
-        String tabStyle = a.getString(R.styleable.BaseTabLayoutView_tabStyle);
-        initTabStyle(tabStyle);
-        mTabStyle.parseAttributes(a);
+        initTabStyle(a);
 
         a.recycle();
     }
 
-    protected void initData(){
+    protected void initData() {
         mSeparateLineColor = mContext.getResources().getColor(R.color.default_separate_line_color);
         tabList = new ArrayList<>();
     }
 
-    protected void initView(){
+    protected void initView() {
         tabContainerView = this;
     }
 
-    private void initTabStyle(String tabStyle) {
-        if(!TextUtils.isEmpty(tabStyle)){
-            if(getResources().getString(R.string.tabStyleTextImage).equals(tabStyle)){
+    private void initTabStyle(TypedArray a) {
+        String tabStyle = a.getString(R.styleable.BaseTabLayoutView_tabStyle);
+        if (!TextUtils.isEmpty(tabStyle)) {
+            if (getResources().getString(R.string.tabStyleTextImage).equals(tabStyle)) {
                 mTabStyle = new TextImageTabStyle();
-            } else if (getResources().getString(R.string.tabStyleTwoLineText).equals(tabStyle)){
+            } else if (getResources().getString(R.string.tabStyleTwoLineText).equals(tabStyle)) {
                 mTabStyle = new TwoLineTextTabStyle();
             }
         }
+        mTabStyle.parseAttributes(a);
     }
 
-    /**
-     * 当前选中的tab左右两边的分割线是否显示
-     */
-    public BaseTabLayoutView isShowSepLineNearCurIndex(boolean isShowSepLineNearCurIndex) {
-        this.isShowSepLineNearCurIndex = isShowSepLineNearCurIndex;
-        return this;
+    public void addOnTabChangeListener(OnTabChangeListener tabListener) {
+        onTabChangeListeners.add(tabListener);
     }
 
     public BaseTabLayoutView clearAllTabView() {
         tabContainerView.removeAllViews();
         if (tabList != null) {
             tabList.clear();
+        }
+        return this;
+    }
+
+    public BaseTabLayoutView addTabList(List<Tab> tabList) {
+        if (tabList != null && tabList.size() > 0) {
+            for (Tab tab : tabList) {
+                addTab(tab);
+            }
         }
         return this;
     }
@@ -206,13 +207,7 @@ public class BaseTabLayoutView extends LinearLayout {
             for (int i = 0; i < tabList.size(); i++) {
                 Tab tab = tabList.get(i);
                 if (i != 0 && mHasSeparator) {
-                    if (isShowSepLineNearCurIndex) {
-                        addSeparatorLine();
-                    } else {
-                        if (i != mCurrentIndex && i != mCurrentIndex + 1) {
-                            addSeparatorLine();
-                        }
-                    }
+                    addSeparatorLine();
                 }
                 if (tab.isActive) {
                     mCurrentIndex = tab.index;
@@ -265,15 +260,19 @@ public class BaseTabLayoutView extends LinearLayout {
 
     private void notifyTabSelected() {
         Tab curTab = tabList.get(mCurrentIndex);
-        if (mTabListener != null) {
-            mTabListener.onTabSelected(curTab);
+        if (onTabChangeListeners != null) {
+            for (OnTabChangeListener onTabChangeListener : onTabChangeListeners) {
+                onTabChangeListener.onTabSelected(curTab);
+            }
         }
     }
 
     private void notifyTabReselected() {
         Tab curTab = tabList.get(mCurrentIndex);
-        if (mTabListener != null) {
-            mTabListener.onTabReselected(curTab);
+        if (onTabChangeListeners != null) {
+            for (OnTabChangeListener onTabChangeListener : onTabChangeListeners) {
+                onTabChangeListener.onTabReselected(curTab);
+            }
         }
     }
 
@@ -287,11 +286,7 @@ public class BaseTabLayoutView extends LinearLayout {
         public int tabViewLayoutId;
     }
 
-    public void setTabListener(TabListener tabListener) {
-        this.mTabListener = tabListener;
-    }
-
-    public interface TabListener {
+    public interface OnTabChangeListener {
         void onTabSelected(Tab tab);
 
         void onTabReselected(Tab tab);
@@ -303,6 +298,7 @@ public class BaseTabLayoutView extends LinearLayout {
     public interface TabStyle {
         /**
          * 解析一个样式特有的属性值
+         *
          * @param typedArray
          */
         void parseAttributes(TypedArray typedArray);
@@ -314,10 +310,12 @@ public class BaseTabLayoutView extends LinearLayout {
 
         /**
          * 根据对应的Tab初始化单个TabView
-         *  @param view
+         *
+         * @param view
          * @param tab
          * @param baseTabLayoutView
          */
         void initSingleTabView(View view, Tab tab, BaseTabLayoutView baseTabLayoutView);
     }
+
 }

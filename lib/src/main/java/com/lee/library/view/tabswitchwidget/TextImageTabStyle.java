@@ -1,11 +1,16 @@
 package com.lee.library.view.tabswitchwidget;
 
 import android.content.res.TypedArray;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lee.library.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by lee on 2018/4/2.
@@ -26,19 +31,19 @@ public class TextImageTabStyle implements BaseTabLayoutView.TabStyle {
 
     @Override
     public void initSingleTabView(View view, BaseTabLayoutView.Tab tab, BaseTabLayoutView baseTabLayoutView) {
-        if(tab instanceof TextImageTab){
+        if (tab instanceof TextImageTab) {
 
             TextView name = (TextView) view.findViewById(R.id.tab_name);
             ImageView icon = (ImageView) view.findViewById(R.id.tab_icon);
             name.setText(((TextImageTab) tab).name);
             if (tab.isActive) {
                 name.setTextColor(baseTabLayoutView.activeTextColor);
-                icon.setBackgroundResource(((TextImageTab)tab).activeIconResId);
+                icon.setBackgroundResource(((TextImageTab) tab).activeIconResId);
             } else {
                 name.setTextColor(baseTabLayoutView.inactiveTextColor);
-                icon.setBackgroundResource(((TextImageTab)tab).inactiveIconResId);
+                icon.setBackgroundResource(((TextImageTab) tab).inactiveIconResId);
             }
-        }  else {
+        } else {
             throw new IllegalArgumentException("the parameter tab not match the TextImageTab");
         }
     }
@@ -72,6 +77,24 @@ public class TextImageTabStyle implements BaseTabLayoutView.TabStyle {
             textImageTab.tabViewLayoutId = tabLayoutId;
             textImageTab.textSize = textSize;
             return textImageTab;
+        }
+
+        public static List<BaseTabLayoutView.Tab> getTabList(@NonNull String[] tabTexts, @Nullable int[] activeIconResIds,
+                                                             @Nullable  int[] inactiveIconResIds, @Nullable int tabLayoutId) {
+            List<BaseTabLayoutView.Tab> tabList = new ArrayList<>();
+            for (int i = 0; i < tabTexts.length; i++) {
+                TextImageTab textImageTab = new TextImageTab();
+                textImageTab.name = tabTexts[i];
+                if (activeIconResIds != null && activeIconResIds.length > i) {
+                    textImageTab.activeIconResId = activeIconResIds[i];
+                }
+                if (inactiveIconResIds != null && inactiveIconResIds.length > i) {
+                    textImageTab.inactiveIconResId = inactiveIconResIds[i];
+                }
+                textImageTab.tabViewLayoutId = tabLayoutId;
+                tabList.add(textImageTab);
+            }
+            return tabList;
         }
     }
 }
