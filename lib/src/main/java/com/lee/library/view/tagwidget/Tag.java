@@ -8,8 +8,8 @@ import android.support.annotation.DrawableRes;
 
 public class Tag {
     private String text;
-    private boolean enabled;
-    private boolean selected;
+    private boolean enabled = true;
+    private boolean selected = false;
     @DrawableRes private int unEnabledBgResId;
     @DrawableRes private int unSelectedBgResId;
     @DrawableRes private int selectedResBgId;

@@ -29,7 +29,6 @@
         android:layout_height="157dp"
         android:layout_marginBottom="8dp"
         tabLayoutView:layout_constraintBottom_toBottomOf="parent"
-        tabLayoutView:layout_constraintEnd_toEndOf="parent"
-        />
+        tabLayoutView:layout_constraintEnd_toEndOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

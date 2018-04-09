@@ -4,18 +4,21 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import java.util.List;
 
 /**
  * Created by lee on 2018/4/3.
+ * 基于github开源项目 AndroidTagGroup修改
  */
 
 public class TagLayoutView extends LinearLayout {
 
     private Context mContext;
     private TagLayoutConfig mConfig;
+    private List<Tag> mTagList;
 
     public TagLayoutView(Context context) {
         super(context);
@@ -42,9 +45,20 @@ public class TagLayoutView extends LinearLayout {
     }
 
     public void showTags(List<Tag> tagList) {
+        if (tagList == null || tagList.size() == 0) {
+            return;
+        }
+        if (mConfig == null) {
+            throw new IllegalStateException("must invoke init() before this invoke method");
+        }
+        mTagList = tagList;
+        updateTagShow();
+    }
+
+    private void updateTagShow() {
         removeAllViews();
-        if (tagList != null) {
-            for (Tag tag : tagList) {
+        if (mTagList != null) {
+            for (Tag tag : mTagList) {
                 addTag(tag);
             }
         }
@@ -54,7 +68,8 @@ public class TagLayoutView extends LinearLayout {
         final TagView tagView = new TagView(mContext, tag, mConfig);
         tagView.setTag(tag);
         tagView.setOnClickListener(mChangeStateTagClickListener);
-        addView(tagView);
+        ViewGroup.LayoutParams layoutParams = new LayoutParams(mConfig.getWidth(), mConfig.getHeight());
+        addView(tagView, layoutParams);
     }
 
     @Override
@@ -152,7 +167,7 @@ public class TagLayoutView extends LinearLayout {
         public void onClick(View v) {
             Tag tag = (Tag) v.getTag();
             if (mOnTagClickListener != null) {
-                mOnTagClickListener.onTagClick(tag);
+                mOnTagClickListener.onTagClick(v);
             }
             if (tag.isEnabled()) {
                 if (tag.isSelected()) {
@@ -160,6 +175,7 @@ public class TagLayoutView extends LinearLayout {
                 } else {
                     tag.setSelected(true);
                 }
+                v.invalidate();
             }
         }
     }
@@ -176,10 +192,8 @@ public class TagLayoutView extends LinearLayout {
     public interface OnTagClickListener {
         /**
          * Called when a tag has been clicked.
-         *
-         * @param tag The corresponding tag Object of the TagView that was clicked.
          */
-        void onTagClick(Tag tag);
+        void onTagClick(View v);
     }
 
 }

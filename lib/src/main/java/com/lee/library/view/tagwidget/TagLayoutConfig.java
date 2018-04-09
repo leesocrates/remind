@@ -1,6 +1,7 @@
 package com.lee.library.view.tagwidget;
 
 import android.content.Context;
+import android.view.ViewGroup;
 
 import com.lee.library.util.DensityUtil;
 
@@ -8,6 +9,17 @@ import com.lee.library.util.DensityUtil;
  * 各种属性和不同显示模式的配置
  */
 public class TagLayoutConfig {
+
+    public enum ShowModel {
+        CIRCLE,
+        RECTANGLE,
+        ROUNDED_RECTANGLE
+    }
+
+    private ShowModel showModel;
+
+    private int width;
+    private int height;
 
     /**
      * The tag outline border color.
@@ -33,6 +45,11 @@ public class TagLayoutConfig {
      * The checked tag background color.
      */
     private int checkedBackgroundColor;
+
+    /**
+     * The unEnabled state background color
+     */
+    private int unEnabledBackgroundColor;
 
     /**
      * The tag background color, when the tag is being pressed.
@@ -80,20 +97,24 @@ public class TagLayoutConfig {
     private int tagViewBottomPadding;
 
     public TagLayoutConfig(Context context) {
+        width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        height = ViewGroup.LayoutParams.WRAP_CONTENT;
         borderColor = 0xff333333;
-        textColor = 0xff333333;
         backgroundColor = 0xffff0000;
         checkedTextColor = 0xffffffff;
         checkedBackgroundColor = 0xffff0000;
         pressedBackgroundColor = 0x88ff0000;
+        unEnabledBackgroundColor = 0xff999999;
         borderStrokeWidth = DensityUtil.dipToPx(context, 1);
+        textColor = 0xff333333;
         textSize = 13;
-        horizontalSpacing = DensityUtil.dipToPx(context, 8);
-        verticalSpacing = DensityUtil.dipToPx(context, 4);
         tagViewLeftPadding = DensityUtil.dipToPx(context, 12);
         tagViewTopPadding = DensityUtil.dipToPx(context, 3);
         tagViewRightPadding = DensityUtil.dipToPx(context, 12);
         tagViewBottomPadding = DensityUtil.dipToPx(context, 3);
+        horizontalSpacing = DensityUtil.dipToPx(context, 8);
+        verticalSpacing = DensityUtil.dipToPx(context, 4);
+        showModel = ShowModel.RECTANGLE;
     }
 
     public int getBorderColor() {
@@ -138,6 +159,14 @@ public class TagLayoutConfig {
 
     public int getPressedBackgroundColor() {
         return pressedBackgroundColor;
+    }
+
+    public int getUnEnabledBackgroundColor() {
+        return unEnabledBackgroundColor;
+    }
+
+    public void setUnEnabledBackgroundColor(int unEnabledBackgroundColor) {
+        this.unEnabledBackgroundColor = unEnabledBackgroundColor;
     }
 
     public void setPressedBackgroundColor(int pressedBackgroundColor) {
@@ -206,5 +235,29 @@ public class TagLayoutConfig {
 
     public void setTagViewBottomPadding(int tagViewBottomPadding) {
         this.tagViewBottomPadding = tagViewBottomPadding;
+    }
+
+    public ShowModel getShowModel() {
+        return showModel;
+    }
+
+    public void setShowModel(ShowModel showModel) {
+        this.showModel = showModel;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 }

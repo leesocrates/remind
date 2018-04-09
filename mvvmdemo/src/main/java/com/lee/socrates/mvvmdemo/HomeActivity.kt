@@ -39,6 +39,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun initTagLayoutView() {
         val config = TagLayoutConfig(applicationContext)
+        config.showModel = TagLayoutConfig.ShowModel.ROUNDED_RECTANGLE
         val tagList = TagFactory.getTagList(arrayOf("tag1", "tag2"))
         homeTagLayoutView.init(config, null)
                 .showTags(tagList)
