@@ -19,7 +19,7 @@ import java.util.List;
  * Created by lee on 2018/4/2.
  */
 
-public class SlidingTabView extends BaseTabLayoutView {
+public class SlidingTabView extends TabLayoutView {
 
     private ViewPager mViewPager;
     private Config mConfig;
@@ -117,6 +117,9 @@ public class SlidingTabView extends BaseTabLayoutView {
 
     public static class Config {
         private int mTabLayoutHeight;
+        /**
+         * true: tabLayout在顶部，viewpager在底部； false: 反之
+         */
         private boolean topTabStyle;
 
         public Config(Context mContext) {

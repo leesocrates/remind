@@ -10,7 +10,7 @@ import com.lee.library.R;
  * Created by lee on 2018/4/2.
  */
 
-public class TwoLineTextTabStyle implements BaseTabLayoutView.TabStyle {
+public class TwoLineTextTabStyle implements TabLayoutView.TabStyle {
 
     @Override
     public void parseAttributes(TypedArray typedArray) {
@@ -23,7 +23,7 @@ public class TwoLineTextTabStyle implements BaseTabLayoutView.TabStyle {
     }
 
     @Override
-    public void initSingleTabView(View view, BaseTabLayoutView.Tab tab, BaseTabLayoutView baseTabLayoutView) {
+    public void initSingleTabView(View view, TabLayoutView.Tab tab, TabLayoutView baseTabLayoutView) {
         if (tab instanceof TwoLineTextTab) {
             TextView topTextView = (TextView) view.findViewById(R.id.tab_top_textview);
             TextView bottomTextView = (TextView) view.findViewById(R.id.tab_bottom_textview);
@@ -41,13 +41,13 @@ public class TwoLineTextTabStyle implements BaseTabLayoutView.TabStyle {
         }
     }
 
-    public static class TwoLineTextTab extends BaseTabLayoutView.Tab {
+    public static class TwoLineTextTab extends TabLayoutView.Tab {
         public String topText;
         public String bottomText;
     }
 
     public static class TabFactory {
-        public static BaseTabLayoutView.Tab getTwoLineTextTab(String topText, String bottomText) {
+        public static TabLayoutView.Tab getTwoLineTextTab(String topText, String bottomText) {
             TwoLineTextTab twoLineTextTab = new TwoLineTextTab();
             twoLineTextTab.tabViewLayoutId = R.layout.view_tab_twolinetext;
             twoLineTextTab.topText = topText;

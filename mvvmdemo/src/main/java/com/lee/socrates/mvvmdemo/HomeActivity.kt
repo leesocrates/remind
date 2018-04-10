@@ -3,7 +3,7 @@ package com.lee.socrates.mvvmdemo
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import com.lee.library.view.tabswitchwidget.BaseTabLayoutView
+import com.lee.library.view.tabswitchwidget.TabLayoutView
 import com.lee.library.view.tabswitchwidget.SlidingTabView
 import com.lee.library.view.tabswitchwidget.TextImageTabStyle
 import com.lee.library.view.tagwidget.TagFactory
@@ -27,7 +27,7 @@ class HomeActivity : AppCompatActivity() {
         val config = SlidingTabView.Config(this.applicationContext)
         config.isTopTabStyle = false
         homeSlidingTabView.initSlidingTabView(supportFragmentManager, config)
-        val tabList: List<BaseTabLayoutView.Tab> = TextImageTabStyle.TabFactory.getTabList(arrayOf("tab1", "tab2", "tab3"),
+        val tabList: List<TabLayoutView.Tab> = TextImageTabStyle.TabFactory.getTabList(arrayOf("tab1", "tab2", "tab3"),
                 IntArray(0), IntArray(0), 0)
         homeSlidingTabView.addTabList(tabList)
         val fragmentList = ArrayList<Fragment>()

@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Created by lee on 2018/4/2.
  */
-public class BaseTabLayoutView extends LinearLayout {
+public class TabLayoutView extends LinearLayout {
 
     /**
      * default value is -1 , it means all tab unselected *
@@ -53,15 +53,15 @@ public class BaseTabLayoutView extends LinearLayout {
     protected LinearLayout tabContainerView;
     private List<OnTabChangeListener> onTabChangeListeners = new ArrayList<>();
 
-    public BaseTabLayoutView(Context context) {
+    public TabLayoutView(Context context) {
         this(context, null);
     }
 
-    public BaseTabLayoutView(Context context, AttributeSet attrs) {
+    public TabLayoutView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public BaseTabLayoutView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public TabLayoutView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mContext = context;
         parseAttributeSet(attrs, defStyleAttr);
@@ -76,15 +76,15 @@ public class BaseTabLayoutView extends LinearLayout {
         final boolean defaultHasSeparator = res.getBoolean(R.bool.defaultHasSeparator);
         final boolean defaultShowActiveBackground = res.getBoolean(R.bool.defaultShowActiveBackground);
 
-        TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.BaseTabLayoutView, defStyleAttr, 0);
+        TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.TabLayoutView, defStyleAttr, 0);
         activeTextColor =
-                a.getColor(R.styleable.BaseTabLayoutView_activeTextColor, defaultActiveTextColor);
+                a.getColor(R.styleable.TabLayoutView_activeTextColor, defaultActiveTextColor);
         inactiveTextColor =
-                a.getColor(R.styleable.BaseTabLayoutView_inactiveTextColor, defaultInactiveTextColor);
-        mActiveBackground = a.getResourceId(R.styleable.BaseTabLayoutView_activeBackground, defaultActiveBackground);
-        mInactiveBackground = a.getResourceId(R.styleable.BaseTabLayoutView_inactiveBackground, defaultInactiveBackground);
-        mHasSeparator = a.getBoolean(R.styleable.BaseTabLayoutView_hasSeparator, defaultHasSeparator);
-        mShowActiveBackground = a.getBoolean(R.styleable.BaseTabLayoutView_showActiveBackground, defaultShowActiveBackground);
+                a.getColor(R.styleable.TabLayoutView_inactiveTextColor, defaultInactiveTextColor);
+        mActiveBackground = a.getResourceId(R.styleable.TabLayoutView_activeBackground, defaultActiveBackground);
+        mInactiveBackground = a.getResourceId(R.styleable.TabLayoutView_inactiveBackground, defaultInactiveBackground);
+        mHasSeparator = a.getBoolean(R.styleable.TabLayoutView_hasSeparator, defaultHasSeparator);
+        mShowActiveBackground = a.getBoolean(R.styleable.TabLayoutView_showActiveBackground, defaultShowActiveBackground);
         initTabStyle(a);
 
         a.recycle();
@@ -100,7 +100,7 @@ public class BaseTabLayoutView extends LinearLayout {
     }
 
     private void initTabStyle(TypedArray a) {
-        String tabStyle = a.getString(R.styleable.BaseTabLayoutView_tabStyle);
+        String tabStyle = a.getString(R.styleable.TabLayoutView_tabStyle);
         if (!TextUtils.isEmpty(tabStyle)) {
             if (getResources().getString(R.string.tabStyleTextImage).equals(tabStyle)) {
                 mTabStyle = new TextImageTabStyle();
@@ -115,7 +115,7 @@ public class BaseTabLayoutView extends LinearLayout {
         onTabChangeListeners.add(tabListener);
     }
 
-    public BaseTabLayoutView clearAllTabView() {
+    public TabLayoutView clearAllTabView() {
         tabContainerView.removeAllViews();
         if (tabList != null) {
             tabList.clear();
@@ -123,7 +123,7 @@ public class BaseTabLayoutView extends LinearLayout {
         return this;
     }
 
-    public BaseTabLayoutView addTabList(List<Tab> tabList) {
+    public TabLayoutView addTabList(List<Tab> tabList) {
         if (tabList != null && tabList.size() > 0) {
             for (Tab tab : tabList) {
                 addTab(tab);
@@ -132,7 +132,7 @@ public class BaseTabLayoutView extends LinearLayout {
         return this;
     }
 
-    public BaseTabLayoutView addTab(Tab tab) {
+    public TabLayoutView addTab(Tab tab) {
         tab.index = tabList.size();
         tabList.add(tab);
         addTabView(tab);
@@ -145,7 +145,7 @@ public class BaseTabLayoutView extends LinearLayout {
      *
      * @param index 设置为当前选中tab的索引值
      */
-    public BaseTabLayoutView setCurrentIndex(int index) {
+    public TabLayoutView setCurrentIndex(int index) {
         setCurrentIndex(index, false);
         return this;
     }
@@ -156,7 +156,7 @@ public class BaseTabLayoutView extends LinearLayout {
      * @param index        设置为当前选中tab的索引值
      * @param notifyChange 是否发送tab选中状态改变的事件
      */
-    public BaseTabLayoutView setCurrentIndex(int index, boolean notifyChange) {
+    public TabLayoutView setCurrentIndex(int index, boolean notifyChange) {
         if (index < 0 || index >= tabList.size()) {
             throw new IllegalArgumentException("index is invalid");
         }
@@ -171,7 +171,7 @@ public class BaseTabLayoutView extends LinearLayout {
         return mCurrentIndex;
     }
 
-    public BaseTabLayoutView setAllTabUnselected() {
+    public TabLayoutView setAllTabUnselected() {
         for (Tab tab : tabList) {
             tab.isActive = false;
         }
@@ -315,7 +315,7 @@ public class BaseTabLayoutView extends LinearLayout {
          * @param tab
          * @param baseTabLayoutView
          */
-        void initSingleTabView(View view, Tab tab, BaseTabLayoutView baseTabLayoutView);
+        void initSingleTabView(View view, Tab tab, TabLayoutView baseTabLayoutView);
     }
 
 }

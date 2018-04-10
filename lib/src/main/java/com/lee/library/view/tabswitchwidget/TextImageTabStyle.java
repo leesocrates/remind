@@ -16,7 +16,7 @@ import java.util.List;
  * Created by lee on 2018/4/2.
  */
 
-public class TextImageTabStyle implements BaseTabLayoutView.TabStyle {
+public class TextImageTabStyle implements TabLayoutView.TabStyle {
 
 
     @Override
@@ -30,7 +30,7 @@ public class TextImageTabStyle implements BaseTabLayoutView.TabStyle {
     }
 
     @Override
-    public void initSingleTabView(View view, BaseTabLayoutView.Tab tab, BaseTabLayoutView baseTabLayoutView) {
+    public void initSingleTabView(View view, TabLayoutView.Tab tab, TabLayoutView baseTabLayoutView) {
         if (tab instanceof TextImageTab) {
 
             TextView name = (TextView) view.findViewById(R.id.tab_name);
@@ -49,7 +49,7 @@ public class TextImageTabStyle implements BaseTabLayoutView.TabStyle {
     }
 
 
-    public static class TextImageTab extends BaseTabLayoutView.Tab {
+    public static class TextImageTab extends TabLayoutView.Tab {
         public String name;
         public int activeIconResId;
         public int inactiveIconResId;
@@ -65,11 +65,11 @@ public class TextImageTabStyle implements BaseTabLayoutView.TabStyle {
          * @param inactiveIconResId the image when the tab is unchoiced
          * @return
          */
-        public static BaseTabLayoutView.Tab getTextImageTab(int tabLayoutId, String tabText, int activeIconResId, int inactiveIconResId) {
+        public static TabLayoutView.Tab getTextImageTab(int tabLayoutId, String tabText, int activeIconResId, int inactiveIconResId) {
             return getTextImageTab(tabLayoutId, tabText, activeIconResId, inactiveIconResId, 0);
         }
 
-        public static BaseTabLayoutView.Tab getTextImageTab(int tabLayoutId, String tabText, int activeIconResId, int inactiveIconResId, int textSize) {
+        public static TabLayoutView.Tab getTextImageTab(int tabLayoutId, String tabText, int activeIconResId, int inactiveIconResId, int textSize) {
             TextImageTab textImageTab = new TextImageTab();
             textImageTab.name = tabText;
             textImageTab.activeIconResId = activeIconResId;
@@ -79,9 +79,9 @@ public class TextImageTabStyle implements BaseTabLayoutView.TabStyle {
             return textImageTab;
         }
 
-        public static List<BaseTabLayoutView.Tab> getTabList(@NonNull String[] tabTexts, @Nullable int[] activeIconResIds,
-                                                             @Nullable  int[] inactiveIconResIds, @Nullable int tabLayoutId) {
-            List<BaseTabLayoutView.Tab> tabList = new ArrayList<>();
+        public static List<TabLayoutView.Tab> getTabList(@NonNull String[] tabTexts, @Nullable int[] activeIconResIds,
+                                                         @Nullable  int[] inactiveIconResIds, @Nullable int tabLayoutId) {
+            List<TabLayoutView.Tab> tabList = new ArrayList<>();
             for (int i = 0; i < tabTexts.length; i++) {
                 TextImageTab textImageTab = new TextImageTab();
                 textImageTab.name = tabTexts[i];
